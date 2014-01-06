@@ -25,7 +25,7 @@ public class DynamicsFragment extends Fragment{
 		for(int i = 0; i < 20; i++){
 			dynamics.add("Dynamic " + (i + 1));
 		}
-		adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_2, dynamics);
+		adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, dynamics);
 		lvDynamics.setAdapter(adapter);
 		return view;
 	}

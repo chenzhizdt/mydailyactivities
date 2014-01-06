@@ -25,7 +25,7 @@ public class ActivitiesFragment extends Fragment{
 		for(int i = 0; i < 20; i++){
 			activities.add("Activity " + (i + 1));
 		}
-		adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_2, activities);
+		adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, activities);
 		lvActivities.setAdapter(adapter);
 		return view;
 	}
