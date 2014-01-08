@@ -1,4 +1,4 @@
-package com.triman.android.app.mydailyactivities;
+package com.triman.dailyactivities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

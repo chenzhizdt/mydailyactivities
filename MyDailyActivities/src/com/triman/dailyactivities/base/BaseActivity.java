@@ -1,4 +1,6 @@
-package com.triman.android.app.mydailyactivities;
+package com.triman.dailyactivities.base;
+
+import com.triman.dailyactivities.R;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;

@@ -1,6 +1,7 @@
-package com.triman.android.app.mydailyactivities;
+package com.triman.dailyactivities;
 
-import com.triman.android.app.mydailyactivities.utils.CheckUtils;
+import com.triman.dailyactivities.base.BaseActivity;
+import com.triman.dailyactivities.utils.CheckUtils;
 
 import android.content.Intent;
 import android.os.Bundle;

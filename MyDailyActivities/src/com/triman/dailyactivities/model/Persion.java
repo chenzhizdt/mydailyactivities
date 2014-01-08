@@ -1,4 +1,4 @@
-package com.triman.android.app.mydailyactivities.model;
+package com.triman.dailyactivities.model;
 
 public class Persion {
 	private String name;

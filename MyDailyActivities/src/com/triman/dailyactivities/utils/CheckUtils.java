@@ -1,4 +1,4 @@
-package com.triman.android.app.mydailyactivities.utils;
+package com.triman.dailyactivities.utils;
 
 public class CheckUtils {
 	public static boolean isNullOrBlank(String str){

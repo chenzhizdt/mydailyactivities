@@ -6,7 +6,7 @@
     android:background="@color/botticelli">
     <TextView 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         style="@style/fragment_title"
         android:text="@string/dynamics"/>
     <ListView 

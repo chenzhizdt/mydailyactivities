@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.triman.android.app.mydailyactivities"
+    package="com.triman.dailyactivities"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.triman.android.app.mydailyactivities.LoginActivity"
+            android:name="LoginActivity"
             android:label="@string/app_name" 
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
@@ -23,9 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.triman.android.app.mydailyactivities.MainActivity">
+        <activity android:name="MainActivity">
             
         </activity>
+        <activity android:name="AddDailyActivityActivity"></activity>
     </application>
 
 </manifest>

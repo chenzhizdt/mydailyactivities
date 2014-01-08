@@ -12,4 +12,11 @@
 	<string name="activities">活动</string>
 	<string name="dynamics">动态</string>
 	<string name="registration">签到</string>
+	<string name="address">地点</string>
+	<string name="theme">主题</string>
+	<string name="add_activity">添加活动</string>
+	<string name="date">日期</string>
+	<string name="time">时间</string>
+	<string name="participiants">参与人员</string>
+	
 </resources>
