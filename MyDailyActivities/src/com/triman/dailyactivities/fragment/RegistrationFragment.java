@@ -1,4 +1,7 @@
-package com.triman.dailyactivities;
+package com.triman.dailyactivities.fragment;
+
+import com.triman.dailyactivities.R;
+import com.triman.dailyactivities.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

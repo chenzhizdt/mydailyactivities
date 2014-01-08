@@ -1,6 +1,9 @@
 package com.triman.dailyactivities;
 
 import com.triman.dailyactivities.base.BaseActivity;
+import com.triman.dailyactivities.fragment.ActivitiesFragment;
+import com.triman.dailyactivities.fragment.DynamicsFragment;
+import com.triman.dailyactivities.fragment.RegistrationFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;

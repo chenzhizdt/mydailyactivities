@@ -1,7 +1,11 @@
-package com.triman.dailyactivities;
+package com.triman.dailyactivities.fragment;
 
 import java.util.ArrayList;
 
+import com.triman.dailyactivities.AddDailyActivityActivity;
+import com.triman.dailyactivities.R;
+import com.triman.dailyactivities.R.id;
+import com.triman.dailyactivities.R.layout;
 import com.triman.dailyactivities.base.ui.BaseArrayAdapter;
 import com.triman.dailyactivities.base.ui.BaseArrayAdapter.DataBinder;
 import com.triman.dailyactivities.model.DailyActivity;
