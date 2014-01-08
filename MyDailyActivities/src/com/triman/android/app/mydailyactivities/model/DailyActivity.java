@@ -33,7 +33,7 @@ public class DailyActivity {
 		return sdf.format(time);
 	}
 	public String getDayStr(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		return sdf.format(time);
 	}
 }
