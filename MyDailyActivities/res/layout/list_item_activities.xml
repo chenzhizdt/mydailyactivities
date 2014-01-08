@@ -13,6 +13,7 @@
         <TextView 
             android:id="@+id/tv_time"
             android:text="00:00"
+            android:textAlignment="center"
             android:textColor="@color/gothic"
             android:layout_width="match_parent"            android:layout_height="wrap_content"/>
         <TextView 
