@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingRight="5dp"
-    >
-    <TextView 
-        android:id="@+id/text"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="5dp">
+        <RelativeLayout 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="15dp">
+            <TextView 
+        android:id="@+id/tv_add_activity_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
        	android:textSize="16sp"
-       	android:paddingLeft="15dp"
        	android:textColor="#000000"
         android:gravity="left|center_vertical"
+        android:text="Test Content"
         />
-    <ImageView 
+    	<TextView 
+    	    android:id="@+id/tv_add_activity_content"
+    	    android:layout_below="@id/tv_add_activity_label"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:textColor="@android:color/darker_gray"
+    	    android:text="Test Content"/>
+        </RelativeLayout>
+        <ImageView 
         android:src="@drawable/common_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
         android:contentDescription="@string/hello_world"
         />
-</RelativeLayout>
+    </LinearLayout>

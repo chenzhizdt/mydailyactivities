@@ -2,60 +2,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/botticelli"
     android:orientation="vertical" >
-    <TextView 
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/fragment_title"
-        android:text="@string/add_activity"/>
-    <ScrollView 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical">
+        android:padding="10dp"
+        android:background="@color/glacier"
+        android:orientation="horizontal">
+        <View 
+             android:layout_width="30dp"
+             android:layout_height="match_parent"/>
+        <TextView 
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/add_activity"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+        <Button 
+            android:id="@+id/btn_confirm_add_activity"
+            android:background="@drawable/confirm_btn_background"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </LinearLayout>
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:layout_margin="10dp"
         android:orientation="vertical">
-
-        <DatePicker
-            android:id="@+id/dp_activity_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:calendarViewShown="false"/>
-        <TimePicker 
-            android:id="@+id/tp_activity_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <EditText 
-            android:id="@+id/et_activity_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="@string/address"/>
-        <EditText 
-            android:id="@+id/et_activity_theme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="@string/theme"/>
-        <Button 
-            android:id="@+id/btn_save_activity"
-            android:layout_width="120dp"
-            android:layout_marginBottom="40dp"
-            android:layout_height="wrap_content"
-            android:text="@string/add_activity"/>
-        
         <ListView
             android:id="@+id/lv_attr_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_bg"
+            android:background="@drawable/listview_round_selector"
             android:cacheColorHint="#00000000"
             android:divider="@color/list_divider"
-            android:dividerHeight="0.1dp"
+            android:dividerHeight="1dp"
             android:listSelector="#00000000" >
         </ListView>
     </LinearLayout>
-	</ScrollView>
 </LinearLayout>

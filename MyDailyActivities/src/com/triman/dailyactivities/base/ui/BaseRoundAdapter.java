@@ -4,18 +4,19 @@ import java.util.List;
 
 import com.triman.dailyactivities.R;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
-public class RoundListViewAdapter<T> extends ArrayAdapter<T>{
+@SuppressLint("ViewConstructor")
+public class BaseRoundAdapter<T> extends BaseArrayAdapter<T>{
 
 	private LayoutInflater inflater;
 	private int resource;
 	
-	public RoundListViewAdapter(Context context, int resource, List<T> objects) {
+	public BaseRoundAdapter(Context context, int resource, List<T> objects) {
 		super(context, resource, objects);
 		inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.resource = resource;
@@ -23,6 +24,9 @@ public class RoundListViewAdapter<T> extends ArrayAdapter<T>{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		
+		T data = getItem(position);
+		
 		if(convertView == null){
 			convertView = inflater.inflate(resource, null);
 		}
@@ -50,9 +54,14 @@ public class RoundListViewAdapter<T> extends ArrayAdapter<T>{
 						R.drawable.list_rect_selector);
 			}
 		}
+		
+		if(getBinder() != null){
+			getBinder().bindDataToView(data, convertView);
+		}
 		return convertView;
 	}
 
+	@SuppressWarnings("deprecation")
 	private void setBackgroundDrawable(View view, int resID) {
 		view.setBackgroundDrawable(getContext().getResources().getDrawable(resID));
 	}

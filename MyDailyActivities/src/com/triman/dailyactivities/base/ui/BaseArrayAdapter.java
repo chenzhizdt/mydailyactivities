@@ -35,6 +35,10 @@ public class BaseArrayAdapter<T> extends ArrayAdapter<T>{
 		
 		return convertView;
 	}
+	
+	protected DataBinder<T> getBinder(){
+		return binder;
+	}
 
 	public void setBinder(DataBinder<T> binder) {
 		this.binder = binder;
