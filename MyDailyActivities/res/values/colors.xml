@@ -7,4 +7,7 @@
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
     <color name="list_divider">#CFCFCF</color>
+    <color name="activity_list_divider">#CFF1FF</color>
+    <color name="bubble_item_divider">#fff7f6f5</color>
+    <color name="timeline_color">#997195A3</color>
 </resources>

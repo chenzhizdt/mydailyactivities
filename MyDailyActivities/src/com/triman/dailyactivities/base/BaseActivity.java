@@ -4,6 +4,7 @@ import com.triman.dailyactivities.R;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Window;
@@ -14,6 +15,7 @@ public class BaseActivity extends FragmentActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFormat(PixelFormat.RGBA_8888);
 	}
 	
 	protected void alert(String msg, String title) {

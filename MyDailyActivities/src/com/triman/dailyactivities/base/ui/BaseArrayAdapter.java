@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 
 public class BaseArrayAdapter<T> extends ArrayAdapter<T>{
 	
@@ -26,7 +25,7 @@ public class BaseArrayAdapter<T> extends ArrayAdapter<T>{
 		T data = getItem(position);
 		
 		if(convertView == null){
-			convertView = (LinearLayout) inflater.inflate(resource, null);
+			convertView = inflater.inflate(resource, null);
 		}
 		
 		if(binder != null){
