@@ -27,6 +27,7 @@
             
         </activity>
         <activity android:name="AddDailyActivityActivity"></activity>
+        <activity android:name="ParticipiantActivity"></activity>
     </application>
 
 </manifest>
