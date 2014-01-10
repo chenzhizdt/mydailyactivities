@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="5dp">
+        <RelativeLayout 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="15dp">
+            <TextView 
+        android:id="@+id/tv_participant_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+       	android:textSize="16sp"
+       	android:textColor="#000000"
+        android:gravity="left|center_vertical"
+        android:text="Test Content"
+        />
+    	<TextView 
+    	    android:id="@+id/tv_participant_phone"
+    	    android:layout_below="@id/tv_add_activity_label"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:textColor="@android:color/darker_gray"
+    	    android:text="Test Content"/>
+        </RelativeLayout>
+        <Button 
+            android:id="@+id/btn_confirm_add_participant"
+            android:background="@drawable/delete_btn_background"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </LinearLayout>

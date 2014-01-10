@@ -26,7 +26,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-public class AddDailyActivityActivity extends BaseActivity implements DataBinder<String>, OnItemClickListener{
+public class DailyActivityActivity extends BaseActivity implements DataBinder<String>, OnItemClickListener{
+	
+	public static final int NEW = 0;
+	public static final int EDIT = 1;
+	/**
+	 * 一个DialyActivity对象id
+	 */
+	public static final String EXTRA_DAILYACTIVITY_ID = "dialyactivityId";
+	/**
+	 * 操作类型 值可以为0 或 1
+	 */
+	public static final String OPERATION_TYPE = "operation_type";
 	
 	private static final String TAG = "AddDailyActivityActivity";
 

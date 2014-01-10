@@ -19,5 +19,9 @@
 	<string name="time">时间</string>
 	<string name="participiants">参与人员</string>
 	<string name="add_participant">添加参与人员</string>
-	
+	<string name="activity_registration">活动签到</string>
+	<string name="activity_info">活动详细</string>
+	<string name="delete">删除</string>
+	<string name="operation">操作</string>
+	<string name="open_registration">开启签到</string>
 </resources>

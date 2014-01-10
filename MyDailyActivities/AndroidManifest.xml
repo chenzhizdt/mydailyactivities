@@ -26,8 +26,9 @@
         <activity android:name="MainActivity">
             
         </activity>
-        <activity android:name="AddDailyActivityActivity"></activity>
+        <activity android:name="DailyActivityActivity"></activity>
         <activity android:name="ParticipiantActivity"></activity>
+        <activity android:name="RegistrationActivity"></activity>
     </application>
 
 </manifest>

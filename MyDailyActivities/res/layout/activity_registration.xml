@@ -4,19 +4,23 @@
     android:layout_height="match_parent"
     android:background="@color/botticelli"
     android:orientation="vertical" >
-    <TextView 
+
+    <TextView
+        style="@style/fragment_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        style="@style/fragment_title"
-        android:text="@string/registration"/>
-    <ScrollView 
+        android:text="@string/registration" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
         <LinearLayout
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@drawable/round"
             android:orientation="vertical"
             android:paddingBottom="6dp"
@@ -67,10 +71,25 @@
                     android:text="上海市某区某地某路某号某某某" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-	<Button 
-	    android:layout_width="match_parent"
-	    android:layout_height="50dp"
-	    android:text="@string/registration"
-	    android:layout_margin="10dp"/>
+
+        <GridView
+            android:id="@+id/gv_participants"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:columnWidth="70dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:text="@string/open_registration" />
+
 </LinearLayout>

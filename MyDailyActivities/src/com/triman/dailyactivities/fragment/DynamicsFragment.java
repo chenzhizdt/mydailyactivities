@@ -41,12 +41,12 @@ public class DynamicsFragment extends Fragment implements DataBinder<Dynamic>{
 	@Override
 	public void bindDataToView(Dynamic data, View view) {
 		
-		TextView time = (TextView) view.findViewById(R.id.tv_dynamic_time);
-		TextView day = (TextView) view.findViewById(R.id.tv_dynamic_day);
-		TextView content = (TextView) view.findViewById(R.id.tv_dynamic_content);
-		
-		time.setText(data.getTimeStr());
-		day.setText(data.getDayStr());
-		content.setText(data.getContent());
+//		TextView time = (TextView) view.findViewById(R.id.tv_dynamic_time);
+//		TextView day = (TextView) view.findViewById(R.id.tv_dynamic_day);
+//		TextView content = (TextView) view.findViewById(R.id.tv_dynamic_content);
+//		
+//		time.setText(data.getTimeStr());
+//		day.setText(data.getDayStr());
+//		content.setText(data.getContent());
 	}
 }

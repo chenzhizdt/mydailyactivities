@@ -9,7 +9,14 @@ public class DailyActivity {
 	private Date time = new Date();
 	private String theme = "主题内容是XXXXXX";
 	private String address = "上海市静安区武宁南路488号智慧广场22楼";
+	private int id;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public Date getTime() {
 		return time;
 	}

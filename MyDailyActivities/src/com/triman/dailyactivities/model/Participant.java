@@ -1,8 +1,9 @@
 package com.triman.dailyactivities.model;
 
-public class Persion {
-	private String name;
-	private String phone;
+public class Participant {
+	
+	private String name = "姓名";
+	private String phone = "130XXXXXXXX";
 	
 	public String getName() {
 		return name;
