@@ -23,12 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="MainActivity">
-            
-        </activity>
+        <activity android:name="MainActivity" />
         <activity android:name="DailyActivityActivity"></activity>
         <activity android:name="ParticipiantActivity"></activity>
         <activity android:name="RegistrationActivity"></activity>
+        <provider android:name="com.triman.dailyactivities.db.DailyActivitiesContentProvider"
+            android:authorities="com.triman.dailyactivities"/>
     </application>
 
 </manifest>

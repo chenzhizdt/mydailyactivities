@@ -3,12 +3,15 @@ package com.triman.dailyactivities.model;
 import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
+import com.triman.dailyactivities.utils.Utils;
 
 @SuppressLint("SimpleDateFormat")
 public class DailyActivity {
-	private Date time = new Date();
-	private String theme = "主题内容是XXXXXX";
-	private String address = "上海市静安区武宁南路488号智慧广场22楼";
+	private long time = new Date().getTime();
+	private String theme = "";
+	private String address = "";
 	private int id;
 	
 	public int getId() {
@@ -17,10 +20,10 @@ public class DailyActivity {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getTime() {
+	public long getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(long time) {
 		this.time = time;
 	}
 	public String getTheme() {
@@ -36,11 +39,11 @@ public class DailyActivity {
 		this.address = address;
 	}
 	public String getTimeStr(){
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:ss");
-		return sdf.format(time);
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
+		return sdf.format(Utils.longToDate(time));
 	}
 	public String getDayStr(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		return sdf.format(time);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.CHINA);
+		return sdf.format(Utils.longToDate(time));
 	}
 }
