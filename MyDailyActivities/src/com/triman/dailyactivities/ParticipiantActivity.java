@@ -3,6 +3,7 @@ package com.triman.dailyactivities;
 import java.util.ArrayList;
 
 import com.triman.dailyactivities.base.BaseActivity;
+import com.triman.dailyactivities.base.ui.BaseArrayAdapter;
 import com.triman.dailyactivities.base.ui.BaseArrayAdapter.DataBinder;
 import com.triman.dailyactivities.base.ui.BaseRoundAdapter;
 import com.triman.dailyactivities.model.Participant;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 
 public class ParticipiantActivity extends BaseActivity implements DataBinder<Participant>{
 	
-	private BaseRoundAdapter<Participant> adapter;
+	private BaseArrayAdapter<Participant> adapter;
 	private ArrayList<Participant> participants;
 	private ListView lvParticipant;
 	
@@ -22,7 +23,7 @@ public class ParticipiantActivity extends BaseActivity implements DataBinder<Par
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_participiant);
+		setContentView(R.layout.activity_participant);
 		lvParticipant = (ListView) findViewById(R.id.lv_participant_list);
 		init();
 	}
