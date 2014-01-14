@@ -1,11 +1,33 @@
 package com.triman.dailyactivities.model;
 
-public class Participant {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Participant implements Parcelable{
 	
 	private String name = "姓名";
 	private String phone = "130XXXXXXXX";
-	private int dailyActivityId;
-	private int id;
+	private int dailyActivityId = -1;
+	private int id = -1;
+	
+	public static final Parcelable.Creator<Participant> CREATOR = new Creator<Participant>(){
+
+		@Override
+		public Participant createFromParcel(Parcel source) {
+			Participant p = new Participant();
+			p.name = source.readString();
+			p.phone = source.readString();
+			p.dailyActivityId = source.readInt();
+			p.id = source.readInt();
+			return p;
+		}
+
+		@Override
+		public Participant[] newArray(int size) {
+			return new Participant[size];
+		}
+		
+	};
 	
 	public int getId() {
 		return id;
@@ -30,5 +52,16 @@ public class Participant {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(name);  
+        dest.writeString(phone);  
+        dest.writeInt(dailyActivityId);
+        dest.writeInt(id);
 	}
 }

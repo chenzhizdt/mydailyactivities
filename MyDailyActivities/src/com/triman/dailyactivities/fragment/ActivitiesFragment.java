@@ -127,8 +127,15 @@ public class ActivitiesFragment extends Fragment implements DataBinder<DailyActi
 							long id = activities.get(position).getId();
 							FragmentActivity fa = (FragmentActivity) getActivity();
 							ContentResolver cr = fa.getContentResolver();
-							Uri uri = Uri.parse(DailyActivitiesContentProvider.BASE_CONTENT_URI + "/" + DailyActivitiesSQLiteOpenHelper.TABLE_DAILY_ACTIVITY + "/" + id);
+							Uri uri = Uri.parse(DailyActivitiesContentProvider.BASE_CONTENT_URI
+											+ "/"
+											+ DailyActivitiesSQLiteOpenHelper.TABLE_DAILY_ACTIVITY
+											+ "/" + id);
 							cr.delete(uri, null, null);
+							Uri participantUri = Uri.parse(DailyActivitiesContentProvider.BASE_CONTENT_URI
+									+ "/"
+									+ DailyActivitiesSQLiteOpenHelper.TABLE_PARTICIPANT);
+							cr.delete(participantUri, DailyActivitiesSQLiteOpenHelper.KEY_PP_DA_ID + "=" + id, null);
 							fa.getSupportLoaderManager().restartLoader(0, null, ActivitiesFragment.this);
 							break;
 						default:break;

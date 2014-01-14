@@ -2,7 +2,6 @@ package com.triman.dailyactivities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -12,6 +11,7 @@ import com.triman.dailyactivities.base.ui.BaseRoundAdapter;
 import com.triman.dailyactivities.db.DailyActivitiesContentProvider;
 import com.triman.dailyactivities.db.DailyActivitiesSQLiteOpenHelper;
 import com.triman.dailyactivities.model.DailyActivity;
+import com.triman.dailyactivities.model.Participant;
 import com.triman.dailyactivities.utils.Utils;
 
 import android.app.AlertDialog;
@@ -47,6 +47,8 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 	private static final String TAG = "AddDailyActivityActivity";
 	private static final String LABEL = "label";
 	private static final String CONTENT = "content";
+	
+	public static final int PATICIPANT_REQUEST = 1;
 
 	private ListView lvAttrList;
 	private BaseRoundAdapter<HashMap<String, Object>> adapter;
@@ -56,6 +58,7 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 	private Button btnConfirm;
 	private TextView tvAddActivityTitle;
 	private DailyActivity da;
+	private ArrayList<Participant> participants;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,7 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 		if(id != -1){
 			tvAddActivityTitle.setText(R.string.edit_activity);
 		}
+		participants = getParticipants(da);
 		attrs = buildAttrs(da);
 		adapter = new BaseRoundAdapter<HashMap<String, Object>>(this, R.layout.list_item_add_activity, attrs);
 		adapter.setBinder(this);
@@ -92,18 +96,19 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 					alert("主题不可为空！");
 				}
 				if(da.getId() == -1){
-					saveDailyActivity(da);
+					int id = saveDailyActivity(da, participants);
+					updateParticipants(id, participants);
 					finish();
 				} else {
-					// TODO 可能更新的时候需要返回结果
-					updateDailyActivity(da);
+					updateDailyActivity(da, participants);
+					updateParticipants(da.getId(), participants);
 					finish();
 				}
 			}
 		});
 	}
 	
-	private void saveDailyActivity(DailyActivity da){
+	private int saveDailyActivity(DailyActivity da, ArrayList<Participant> participants){
 		ContentResolver cr = getContentResolver();
 		Uri uri = Uri.parse(DailyActivitiesContentProvider.BASE_CONTENT_URI
 				+ "/"
@@ -113,10 +118,12 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 		values.put(DailyActivitiesSQLiteOpenHelper.KEY_DA_TIME, da.getTime());
 		values.put(DailyActivitiesSQLiteOpenHelper.KEY_DA_ADDRESS, da.getAddress());
 		values.put(DailyActivitiesSQLiteOpenHelper.KEY_DA_THEME, da.getTheme());
-		cr.insert(uri, values);
+		Uri insertId = cr.insert(uri, values);
+		int id = Integer.parseInt(insertId.getPathSegments().get(2));
+		return id;
 	}
 	
-	private void updateDailyActivity(DailyActivity da){
+	private void updateDailyActivity(DailyActivity da, ArrayList<Participant> participants){
 		ContentResolver cr = getContentResolver();
 		Uri uri = Uri.parse(DailyActivitiesContentProvider.BASE_CONTENT_URI
 				+ "/"
@@ -128,6 +135,54 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 		values.put(DailyActivitiesSQLiteOpenHelper.KEY_DA_ADDRESS, da.getAddress());
 		values.put(DailyActivitiesSQLiteOpenHelper.KEY_DA_THEME, da.getTheme());
 		cr.update(uri, values, null, null);
+	}
+	
+	private void updateParticipants(int dailyActivityId, ArrayList<Participant> participants){
+		ContentResolver cr = getContentResolver();
+		Uri deleteUri = Uri.parse(DailyActivitiesContentProvider.BASE_CONTENT_URI
+				+ "/"
+				+ DailyActivitiesSQLiteOpenHelper.TABLE_PARTICIPANT);
+		cr.delete(deleteUri, DailyActivitiesSQLiteOpenHelper.KEY_PP_DA_ID + "=" + dailyActivityId, null);
+		Uri insertUri = Uri.parse(DailyActivitiesContentProvider.BASE_CONTENT_URI
+				+ "/"
+				+ DailyActivitiesSQLiteOpenHelper.TABLE_PARTICIPANT);
+		if(participants.size() > 0){
+			for(int i = 0; i < participants.size(); i++){
+				Participant p = participants.get(i);
+				ContentValues values = new ContentValues();
+				values.put(DailyActivitiesSQLiteOpenHelper.KEY_PP_DA_ID, dailyActivityId);
+				values.put(DailyActivitiesSQLiteOpenHelper.KEY_PP_NAME, p.getName());
+				values.put(DailyActivitiesSQLiteOpenHelper.KEY_PP_PHONE, p.getPhone());
+				cr.insert(insertUri, values);
+			}
+		}
+	}
+	
+	private ArrayList<Participant> getParticipants(DailyActivity da){
+		ArrayList<Participant> participants = new ArrayList<Participant>();
+		if(da.getId() != -1){
+			ContentResolver cr = getContentResolver();
+			Uri uri = Uri.parse(DailyActivitiesContentProvider.BASE_CONTENT_URI
+					+ "/"
+					+ DailyActivitiesSQLiteOpenHelper.TABLE_PARTICIPANT);
+			
+			Cursor cursor = cr.query(uri, null, DailyActivitiesSQLiteOpenHelper.KEY_PP_DA_ID + "=" + da.getId(), null, null);
+			
+			int keyIdIndex = cursor.getColumnIndex(DailyActivitiesSQLiteOpenHelper.KEY_PP_ID);
+			int keyDaIdIndex = cursor.getColumnIndex(DailyActivitiesSQLiteOpenHelper.KEY_PP_DA_ID);
+			int keyNameIndex = cursor.getColumnIndex(DailyActivitiesSQLiteOpenHelper.KEY_PP_NAME);
+			int keyPhoneIndex = cursor.getColumnIndex(DailyActivitiesSQLiteOpenHelper.KEY_PP_PHONE);
+			
+			while(cursor.moveToNext()){
+				Participant p = new Participant();
+				p.setId(cursor.getInt(keyIdIndex));
+				p.setDailyActivityId(cursor.getInt(keyDaIdIndex));
+				p.setName(cursor.getString(keyNameIndex));
+				p.setPhone(cursor.getString(keyPhoneIndex));
+				participants.add(p);
+			}
+		}
+		return participants;
 	}
 	
 	private DailyActivity getDailyActivity(int id){
@@ -178,7 +233,7 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 		
 		HashMap<String, Object> attr4 = new HashMap<String, Object>();
 		attr4.put(LABEL, getResources().getString(attrNames[4]));
-		attr4.put(CONTENT, "");
+		attr4.put(CONTENT, participantsToString(participants));
 		
 		attrs.add(attr0);
 		attrs.add(attr1);
@@ -186,6 +241,18 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 		attrs.add(attr3);
 		attrs.add(attr4);
 		return attrs;
+	}
+	
+	private String participantsToString(ArrayList<Participant> participants){
+		String content = "";
+		if(participants.size() > 0){
+			for(int i = 0; i < participants.size(); i++){
+				content += participants.get(i).getName() + ", ";
+			}
+			// TODO: 待测试
+			content = content.substring(0, content.length() - 2);
+		}
+		return content;
 	}
 
 	@Override
@@ -198,7 +265,6 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-		// TODO Auto-generated method stub
 		Log.v(TAG, "Item Click");
 		switch(position){
 		case 0:
@@ -226,7 +292,6 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 				
 				@Override
 				public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-					// TODO Auto-generated method stub
 					Log.v(TAG, "Date Set" + ": " + hourOfDay + ":" + minute);
 					Calendar date1 = Calendar.getInstance(Locale.CHINA);
 					date1.setTime(Utils.longToDate(da.getTime()));
@@ -273,12 +338,28 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 			}, editText1).show();
 			break;
 		case 4:
-			// TODO 添加业务逻辑Participiant返回业务逻辑
 			Intent i = new Intent(this, ParticipiantActivity.class);
-			startActivity(i);
+			i.putParcelableArrayListExtra(ParticipiantActivity.EXTRA_PARTICIPANTS, participants);
+			startActivityForResult(i, PATICIPANT_REQUEST);
 			break;
 		default:break;
 		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		switch (resultCode) {
+		case RESULT_OK:
+			participants = data.getParcelableArrayListExtra(ParticipiantActivity.EXTRA_PARTICIPANTS);
+			attrs.get(4).put(CONTENT, participantsToString(participants));
+			adapter.notifyDataSetChanged();
+			break;
+		default:
+			break;
+		}
+		
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
 	private Builder buildEnterDialog(final Callback callback, final EditText editText){
@@ -299,4 +380,5 @@ public class DailyActivityActivity extends BaseActivity implements DataBinder<Ha
 	private interface Callback{
 		public void onConfirm(String text);
 	}
+	
 }

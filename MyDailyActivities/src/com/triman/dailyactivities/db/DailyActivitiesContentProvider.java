@@ -45,15 +45,24 @@ public class DailyActivitiesContentProvider extends ContentProvider{
 		String table = null;
 		String rowId = null;
 		switch (uri_matcher.match(uri)) {
+		case DAILY_ACTIVITY:
+			table = DailyActivitiesSQLiteOpenHelper.TABLE_DAILY_ACTIVITY;
+			break;
 		case DAILY_ACTIVITY_QUERY_BY_ROWID:
 			table = DailyActivitiesSQLiteOpenHelper.TABLE_DAILY_ACTIVITY;
 			rowId = uri.getPathSegments().get(2);
 			selection = "id=" + rowId + (!TextUtils.isEmpty(selection) ? " AND (" + selection + ")" : "");
 			break;
+		case DYNAMIC:
+			table = DailyActivitiesSQLiteOpenHelper.TABLE_DYNAMIC;
+			break;
 		case DYNAMIC_QUERY_BY_ROWID:
 			table = DailyActivitiesSQLiteOpenHelper.TABLE_DYNAMIC;
 			rowId = uri.getPathSegments().get(2);
 			selection = "id=" + rowId + (!TextUtils.isEmpty(selection) ? " AND (" + selection + ")" : "");
+			break;
+		case PARTICIPANT:
+			table = DailyActivitiesSQLiteOpenHelper.TABLE_PARTICIPANT;
 			break;
 		case PARTICIPANT_QUERY_BY_ROWID:
 			table = DailyActivitiesSQLiteOpenHelper.TABLE_PARTICIPANT;
@@ -61,7 +70,7 @@ public class DailyActivitiesContentProvider extends ContentProvider{
 			selection = "id=" + rowId + (!TextUtils.isEmpty(selection) ? " AND (" + selection + ")" : "");
 			break;
 		default:
-			break;
+			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
 		int deleteCount = db.delete(table, selection, selectionArgs);
 		notifyChange(uri);
@@ -96,22 +105,34 @@ public class DailyActivitiesContentProvider extends ContentProvider{
 	public Uri insert(Uri uri, ContentValues values) {
 		SQLiteDatabase db = mSQLiteOpenHelper.getWritableDatabase();
 		String table = null;
+		String _id = null;
 		switch (uri_matcher.match(uri)) {
 		case DAILY_ACTIVITY:
 			table = DailyActivitiesSQLiteOpenHelper.TABLE_DAILY_ACTIVITY;
+			_id = DailyActivitiesSQLiteOpenHelper.KEY_DA_ID;
 			break;
 		case DYNAMIC:
 			table = DailyActivitiesSQLiteOpenHelper.TABLE_DYNAMIC;
+			_id = DailyActivitiesSQLiteOpenHelper.KEY_DM_ID;
 			break;
 		case PARTICIPANT:
 			table = DailyActivitiesSQLiteOpenHelper.TABLE_PARTICIPANT;
+			_id = DailyActivitiesSQLiteOpenHelper.KEY_PP_ID;
 			break;
 		default:
 			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
 		long rowid = db.insert(table, null, values);
+		
 		if(rowid > -1){
-			Uri insertId = ContentUris.withAppendedId(uri, rowid);
+			SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+			queryBuilder.appendWhere("rowid = " + rowid);
+			queryBuilder.setTables(table);
+			Cursor cursor = queryBuilder.query(db, new String[]{_id}, null, null, null, null, null);
+			int keyIdIndex = cursor.getColumnIndex(_id);
+			cursor.moveToNext();
+			int id = cursor.getInt(keyIdIndex);
+			Uri insertId = ContentUris.withAppendedId(uri, id);
 			notifyChange(insertId);
 			return insertId;
 		}
@@ -163,7 +184,7 @@ public class DailyActivitiesContentProvider extends ContentProvider{
 			queryBuilder.appendWhere("id" + "=" + rowId);
 			break;
 		default:
-			break;
+			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
 		queryBuilder.setTables(table);
 		Cursor cursor = queryBuilder.query(db, projection, selection, selectionArgs, groupBy, having, sortOrder);
@@ -192,6 +213,8 @@ public class DailyActivitiesContentProvider extends ContentProvider{
 			rowId = uri.getPathSegments().get(2);
 			selection =  "id=" + rowId + (!TextUtils.isEmpty(selection) ? " AND (" + selection + ")" : "");
 			break;
+		default:
+			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
 		int updateCount  = db.update(table, values, selection, selectionArgs);
 		notifyChange(uri);
