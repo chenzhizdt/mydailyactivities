@@ -10,4 +10,6 @@
     <color name="activity_list_divider">#CFF1FF</color>
     <color name="bubble_item_divider">#fff7f6f5</color>
     <color name="timeline_color">#997195A3</color>
+    <color name="green">#00FF00</color>
+    <color name="red">#FF0000</color>
 </resources>

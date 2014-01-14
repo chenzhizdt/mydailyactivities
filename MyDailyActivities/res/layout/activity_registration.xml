@@ -36,7 +36,7 @@
                 <TextView
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="地点" />
+                    android:text="@string/address" />
 
                 <TextView
                     android:id="@+id/tv_address"
@@ -61,7 +61,7 @@
                 <TextView
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="主题" />
+                    android:text="@string/theme" />
 
                 <TextView
                     android:id="@+id/tv_theme"

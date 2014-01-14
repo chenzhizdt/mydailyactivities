@@ -9,6 +9,7 @@ public class Participant implements Parcelable{
 	private String phone = "130XXXXXXXX";
 	private int dailyActivityId = -1;
 	private int id = -1;
+	private boolean isExist = false;
 	
 	public static final Parcelable.Creator<Participant> CREATOR = new Creator<Participant>(){
 
@@ -29,6 +30,13 @@ public class Participant implements Parcelable{
 		
 	};
 	
+	
+	public boolean isExist() {
+		return isExist;
+	}
+	public void setExist(boolean isExist) {
+		this.isExist = isExist;
+	}
 	public int getId() {
 		return id;
 	}
